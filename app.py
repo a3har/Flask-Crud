@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://ostgeism:pZ9a1TCa2Z5kbK4p21XVAgUzOjKB_nwu@kandula.db.elephantsql.com:5432/ostgeism'
 db = SQLAlchemy(app)
 
 class Todo(db.Model):
@@ -15,7 +15,7 @@ class Todo(db.Model):
         return '<Task %r>' % self.id
 
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/POSTGRESQL', methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
         task_content = request.form['content']
@@ -24,7 +24,7 @@ def index():
         try:
             db.session.add(new_task)
             db.session.commit()
-            return redirect('/')
+            return redirect('/POSTGRESQL')
         except:
             return 'There was an issue adding your task'
 
@@ -40,7 +40,7 @@ def delete(id):
     try:
         db.session.delete(task_to_delete)
         db.session.commit()
-        return redirect('/')
+        return redirect('/POSTGRESQL')
     except:
         return 'There was a problem deleting that task'
 
@@ -53,7 +53,7 @@ def update(id):
 
         try:
             db.session.commit()
-            return redirect('/')
+            return redirect('/POSTGRESQL')
         except:
             return 'There was an issue updating your task'
 
