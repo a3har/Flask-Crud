@@ -5,7 +5,7 @@
 Clone the project and navigate to the project directory  
 Run `virtualenv env` to initialize a virtual environment  
 `source env/bin/activate` to activate the virtual environment  
-`pip3 install -r requirements.txt` or `pip3 install -r requirements.txt` to install all requirements  
+`pip3 install -r requirements.txt` or `pip install -r requirements.txt` to install all requirements  
 
 ## Development Server
 
