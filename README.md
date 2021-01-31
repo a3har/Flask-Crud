@@ -14,7 +14,7 @@ The app will automatically reload if you change any of the source files.
 
 ## Endpoints 
 
-`/POSTGRESQL` for CRUD on POSTGRES database
+`/POSTGRESQL` for CRUD on POSTGRES database  
 `/MySQL` for CRUD on MySQL database
 
 
