@@ -10,6 +10,9 @@ app.config['SQLALCHEMY_BINDS'] = {'mysql' : 'mysql://sql12389863:gFQ4HSgFvg@sql1
 db.app = app
 db.init_app(app)
 
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 @app.route('/POSTGRESQL', methods=['POST', 'GET'])
 def postgres_index():
