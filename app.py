@@ -1,25 +1,21 @@
 from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
-from datetime import datetime
+from models.POSTGRESmodels import TodoPOSTGRES
+from models.shared import db
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://ostgeism:pZ9a1TCa2Z5kbK4p21XVAgUzOjKB_nwu@kandula.db.elephantsql.com:5432/ostgeism'
-db = SQLAlchemy(app)
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://ostgeism:pZ9a1TCa2Z5kbK4p21XVAgUzOjKB_nwu@kandula.db.elephantsql.com:5432/ostgeism'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://sql12389863:gFQ4HSgFvg@sql12.freemysqlhosting.net:3306/sql12389863'
 
-class Todo(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    content = db.Column(db.String(200), nullable=False)
-    date_created = db.Column(db.DateTime, default=datetime.utcnow)
-
-    def __repr__(self):
-        return '<Task %r>' % self.id
+db.app = app
+db.init_app(app)
 
 
 @app.route('/POSTGRESQL', methods=['POST', 'GET'])
 def index():
     if request.method == 'POST':
         task_content = request.form['content']
-        new_task = Todo(content=task_content)
+        new_task = TodoPOSTGRES(content=task_content)
 
         try:
             db.session.add(new_task)
@@ -29,13 +25,13 @@ def index():
             return 'There was an issue adding your task'
 
     else:
-        tasks = Todo.query.order_by(Todo.date_created).all()
+        tasks = TodoPOSTGRES.query.order_by(TodoPOSTGRES.date_created).all()
         return render_template('POSTGRESQL/index.html', tasks=tasks)
 
 
 @app.route('/POSTGRESQL/delete/<int:id>')
 def delete(id):
-    task_to_delete = Todo.query.get_or_404(id)
+    task_to_delete = TodoPOSTGRES.query.get_or_404(id)
 
     try:
         db.session.delete(task_to_delete)
@@ -46,7 +42,7 @@ def delete(id):
 
 @app.route('/POSTGRESQL/update/<int:id>', methods=['GET', 'POST'])
 def update(id):
-    task = Todo.query.get_or_404(id)
+    task = TodoPOSTGRES.query.get_or_404(id)
 
     if request.method == 'POST':
         task.content = request.form['content']
