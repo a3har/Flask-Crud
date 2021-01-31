@@ -21,9 +21,9 @@
                 <td>{{ task.content }}</td>
                 <td>{{ task.date_created.date() }}</td>
                 <td>
-                    <a href="/delete/{{task.id}}">Delete</a>
+                    <a href="/POSTGRESQL/delete/{{task.id}}">Delete</a>
                     <br>
-                    <a href="/update/{{task.id}}">Update</a>
+                    <a href="/POSTGRESQL/update/{{task.id}}">Update</a>
                 </td>
             </tr>
         {% endfor %}
@@ -31,7 +31,7 @@
     {% endif %}
 
     <div class="form">
-        <form action="/" method="POST">
+        <form action="/POSTGRESQL" method="POST">
             <input type="text" name="content" id="content">
             <input type="submit" value="Add Task">
         </form>
