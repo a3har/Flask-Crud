@@ -12,4 +12,9 @@ Run `virtualenv env` to initialize a virtual environment
 Run `python3 app.py` to start a development server and navigate to `http://localhost:5000/`.  
 The app will automatically reload if you change any of the source files.
 
+## Endpoints 
+
+`/POSTGRESQL` for CRUD on POSTGRES database
+`/MySQL` for CRUD on MySQL database
+
 
